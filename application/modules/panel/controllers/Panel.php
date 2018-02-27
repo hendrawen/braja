@@ -14,6 +14,6 @@ class Panel extends CI_Controller {
     $data['judul']          = 'Dashboard';
     $data['sub_judul']      = '';
     $data['content']        = 'content';
-		$this->load->view('dashboad', $data);
+		$this->load->view('dashboard', $data);
 	}
 }
