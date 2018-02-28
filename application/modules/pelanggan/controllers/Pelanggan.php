@@ -42,7 +42,7 @@ class Pelanggan extends CI_Controller{
             $row[] = $pelanggans->nama_dagang;
             $row[] = $pelanggans->alamat;
             $row[] = $pelanggans->photo_toko;
-            $row[] = $pelanggans->kotas;
+            $row[] = $pelanggans->kota;
             $row[] = $pelanggans->kelurahan;
             $row[] = $pelanggans->kecamatan;
             $row[] = $pelanggans->lat;

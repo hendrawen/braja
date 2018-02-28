@@ -1,11 +1,30 @@
 <div class="row">
 <div class="col-lg-12">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            DataTables Advanced Tables
+  <div class="panel panel-primary">
+      <div class="panel-heading">
+        Filter Data
+      </div>
+      <div class="panel-body">
+            <form id="form-filter" class="form-horizontal">
+                <div class="form-group">
+                    <label for="kota" class="col-sm-2 control-label">Kota</label>
+                    <div class="col-sm-4">
+                        <?php echo $form_kota; ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="LastName" class="col-sm-2 control-label"></label>
+                    <div class="col-sm-4">
+                        <button type="button" id="btn-filter" class="btn btn-primary">Filter</button>
+                        <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="col-sm-4">
-            <?php echo $form_kota; ?>
+  </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            List Data Pelanggan
         </div>
         <div class="panel-body">
             <div class="table-responsive">
@@ -62,45 +81,5 @@
 <!--END PAGE CONTENT -->
 </div>
 
-<script>
-
-var table;
-
-$(document).ready(function() {
-
-    //datatables
-    table = $('#table').DataTable({
-
-        "processing": true, //Feature control the processing indicator.
-        "serverSide": true, //Feature control DataTables' server-side processing mode.
-        "order": [], //Initial no order.
-
-        // Load data for the table's content from an Ajax source
-        "ajax": {
-            "url": "<?php echo base_url('pelanggan/ajax_list')?>",
-            "type": "POST"
-        },
-
-        //Set column definition initialisation properties.
-        "columnDefs": [
-        {
-            "targets": [ 0 ], //first column / numbering column
-            "orderable": false, //set not orderable
-        },
-        ],
-
-    });
-
-    $('#btn-filter').click(function(){ //button filter event click
-        table.ajax.reload();  //just reload table
-    });
-    $('#btn-reset').click(function(){ //button reset event click
-        $('#form-filter')[0].reset();
-        table.ajax.reload();  //just reload table
-    });
-
-});
-
-</script>
 
 <!--END MAIN WRAPPER -->
