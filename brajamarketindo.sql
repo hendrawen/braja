@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 27, 2018 at 07:08 AM
+-- Generation Time: Feb 27, 2018 at 09:59 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.10
 
@@ -21,6 +21,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `brajamarketindo`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_pelanggan`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_pelanggan` (
+`id` int(11)
+,`id_pelanggan` varchar(45)
+,`nama_pelanggan` varchar(125)
+,`no_telp` int(11)
+,`nama_dagang` enum('Toko','Pedagang','Agen')
+,`alamat` text
+,`photo` varchar(115)
+,`photo_toko` varchar(115)
+,`kota` varchar(115)
+,`kelurahan` varchar(115)
+,`kecamatan` varchar(115)
+,`lat` varchar(200)
+,`long` varchar(45)
+,`keterangan` text
+,`status` enum('Responden','Pelanggan')
+,`nama` varchar(115)
+);
 
 -- --------------------------------------------------------
 
@@ -172,6 +197,22 @@ CREATE TABLE `wp_jkebutuhan` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `wp_karyawan`
+--
+
+CREATE TABLE `wp_karyawan` (
+  `id_karyawan` varchar(45) NOT NULL,
+  `nama` varchar(115) DEFAULT NULL,
+  `alamat` text,
+  `no_telp` int(11) DEFAULT NULL,
+  `photo` varchar(45) DEFAULT NULL,
+  `status` varchar(45) DEFAULT NULL,
+  `wp_jabatan_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wp_kebutuhan`
 --
 
@@ -259,9 +300,11 @@ CREATE TABLE `wp_pelanggan` (
   `alamat` text,
   `photo` varchar(115) DEFAULT NULL,
   `photo_toko` varchar(115) DEFAULT NULL,
+  `kota` varchar(115) DEFAULT NULL,
   `kelurahan` varchar(115) DEFAULT NULL,
   `kecamatan` varchar(115) DEFAULT NULL,
-  `kordinat` varchar(200) DEFAULT NULL,
+  `lat` varchar(200) DEFAULT NULL,
+  `long` varchar(45) DEFAULT NULL,
   `keterangan` text,
   `status` enum('Responden','Pelanggan') DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -409,6 +452,15 @@ CREATE TABLE `wp_users_groups` (
   `wp_users_id` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_pelanggan`
+--
+DROP TABLE IF EXISTS `v_pelanggan`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_pelanggan`  AS  select `wp_pelanggan`.`id` AS `id`,`wp_pelanggan`.`id_pelanggan` AS `id_pelanggan`,`wp_pelanggan`.`nama_pelanggan` AS `nama_pelanggan`,`wp_pelanggan`.`no_telp` AS `no_telp`,`wp_pelanggan`.`nama_dagang` AS `nama_dagang`,`wp_pelanggan`.`alamat` AS `alamat`,`wp_pelanggan`.`photo` AS `photo`,`wp_pelanggan`.`photo_toko` AS `photo_toko`,`wp_pelanggan`.`kota` AS `kota`,`wp_pelanggan`.`kelurahan` AS `kelurahan`,`wp_pelanggan`.`kecamatan` AS `kecamatan`,`wp_pelanggan`.`lat` AS `lat`,`wp_pelanggan`.`long` AS `long`,`wp_pelanggan`.`keterangan` AS `keterangan`,`wp_pelanggan`.`status` AS `status`,`wp_karyawan`.`nama` AS `nama` from (`wp_pelanggan` join `wp_karyawan`) where (`wp_karyawan`.`id_karyawan` = `wp_pelanggan`.`wp_karyawan_id_karyawan`) ;
+
 --
 -- Indexes for dumped tables
 --
@@ -472,6 +524,13 @@ ALTER TABLE `wp_jadwal`
 --
 ALTER TABLE `wp_jkebutuhan`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `wp_karyawan`
+--
+ALTER TABLE `wp_karyawan`
+  ADD PRIMARY KEY (`id_karyawan`),
+  ADD KEY `fk_wp_karyawan_wp_jabatan1_idx` (`wp_jabatan_id`);
 
 --
 -- Indexes for table `wp_kebutuhan`
@@ -754,6 +813,12 @@ ALTER TABLE `wp_faktur`
 --
 ALTER TABLE `wp_jadwal`
   ADD CONSTRAINT `fk_wp_jadwal_wp_barang1` FOREIGN KEY (`wp_barang_id`) REFERENCES `wp_barang` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Constraints for table `wp_karyawan`
+--
+ALTER TABLE `wp_karyawan`
+  ADD CONSTRAINT `fk_wp_karyawan_wp_jabatan1` FOREIGN KEY (`wp_jabatan_id`) REFERENCES `wp_jabatan` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `wp_kebutuhan`
