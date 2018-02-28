@@ -15,7 +15,7 @@ class Pelanggan extends CI_Controller{
     $data['title']			= 'Brjamarketindo';
     $data['judul']			= 'Pelanggan';
     $data['sub_judul']		= '';
-    $data['content']			= 'index';
+    $data['content']			= 'main';
     $kotas = $this->pelanggan->get_list_kota();
 
     $opt = array('' => 'Semua Kota');
