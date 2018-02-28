@@ -102,8 +102,8 @@
                     </ul>
                 </li>
 
-                <li><a href="<?php echo base_url();?>wp_profile"><i class="icon-film"></i> Profile </a></li>
-                <li><a href="<?php echo base_url();?>wp_transaksi"><i class="icon-film"></i> Transasaksi </a></li>
+                <li><a href="<?php echo base_url();?>profile"><i class="icon-film"></i> Profile </a></li>
+                <li><a href="<?php echo base_url();?>transaksi"><i class="icon-film"></i> Transasaksi </a></li>
                 <li><a href=""><i class="icon-table"></i> Data Tables </a></li>
                 <li><a href=""><i class="icon-map-marker"></i> Maps </a></li>
 
